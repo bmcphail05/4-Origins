@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>GitPitch Desktop</title>
+    <meta content="The Markdown Presentation Service on Git." name="description">
+    <meta content="Markdown, Presentation, GitHub, GitLab, Bitbucket, PITCHME" name="keywords">
+    
+<link href="/assets/libs/reveal.js/3.8.0/css/reveal.css" rel="stylesheet" type="text/css"/>
+
+<link href="/assets/libs/css/fonts.css" rel="stylesheet" type="text/css"/>
+
+<link href="/assets/libs/reveal.js/3.8.0/css/theme/white.css" rel="stylesheet" type="text/css" id="theme"/>
+<link href="/assets/libs/reveal.js/3.8.0/plugin/title-footer/title-footer-mod.css" rel="stylesheet" type="text/css" id="theme"/>
+
+<link href="/assets/libs/reveal.js/3.8.0/css/print/paper.css" rel="stylesheet" type="text/css"/>
+
+
+<link href="/assets/libs/highlight.js/9.13.1/hybrid.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/octicons/3.5.0/octicons.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/font-awesome/5.7.2/css/fa-all.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/font-awesome/5.7.2/css/fa-v4-shims.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/emoji-awesome/0.0.2/css/twitter.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/asciinema/2.6.1/css/asciinema-player.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/css/pitchcore.css" rel="stylesheet" type="text/css"/>
+
+
+
+
+<link href="/assets/libs/css/pitch.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/css/pitchmenu.css" rel="stylesheet" type="text/css"/>
+
+
+<link href="/assets/libs/css/pitchbarlight.css" rel="stylesheet" type="text/css"/>
+
+
+<link href="/assets/libs/css/pitchcode.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/libs/css/pitchpro.css" rel="stylesheet" type="text/css"/>
+
+    
+
+
+    
+    
+<script>
+if ("WebSocket" in window) {
+
+    var ws = new WebSocket("ws://localhost:9000/pitchme/watch");
+
+    ws.onopen = function() { };
+    ws.onmessage = function (evt) {
+        var received_msg = evt.data;
+        location.reload(true);
+    };
+
+    ws.onclose = function() {
+    };
+
+    window.onbeforeunload = function(event) {
+        if(socket != undefined) {
+            socket.close();
+        }
+    };
+} else {
+    // The browser doesn't support WebSocket
+    console.log("GitPitch Desktop auto-reload disabled [no websockets].");
+}
+</script>
+
+    
+    <link href="/assets/libs/css/pitchpost.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    
+
+
+    <div class="reveal">
+        <div class="slides">
+            
+            <section data-markdown="/pitchme/markdown/desktop/gitpitch/desktop/master/PITCHME.md"
+                     data-separator="(^---$|^---\?.*)"
+                     data-separator-vertical="(^\+\+\+$|^\+\+\+\?.*)"
+                     data-separator-notes="^Note:"
+                     data-charset="utf-8">
+            </section>
+            
+        </div>
+        
+
+<footer id="title-footer"><p id="notification"></p></footer>
+
+
+    </div>
+    
+    <div class="gp-menu"></div>
+    
+
+    <script src="/assets/libs/reveal.js/3.8.0/js/reveal.js"></script>
+    <script src="/assets/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    <script src="/assets/libs/asciinema/2.6.1/js/asciinema-player.js"></script>
+    
+
+    
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            controlsLayout: 'bottom-right',
+            embedded: true,
+            margin: 0.0,
+            showNotes: false,
+            transition: 'none',
+            backgroundTransition: 'none',
+            autoSlide: 0,
+            loop: false,
+            center: true,
+            rtl: false,
+            shuffle: false,
+            mouseWheel: false,
+            slideNumber: 'c/t', // slideNumber: false,
+            history: true,
+            
+            menu: {
+              custom: [],
+              path : "/assets/libs/reveal.js/3.8.0/plugin/menu",
+              themes : false,
+              transitions:  false,
+              markers: true,
+              sticky: true,
+              autoOpen: true
+            },
+            dependencies: [
+                { src: "/assets/libs/reveal.js/3.8.0/plugin/markdown/marked.js",
+                  condition: function() {
+                    return !!document.querySelector( '[data-markdown]' );
+                  }},
+                { src: "/assets/libs/reveal.js/3.8.0/plugin/markdown/markdown.js",
+                condition: function() {
+                  return !!document.querySelector( '[data-markdown]' );
+                }},
+                
+                { src:"/assets/libs/reveal.js/3.8.0/plugin/menu/menu-mod.js",
+                  async: true},
+                
+                
+                
+                { src: "/assets/libs/reveal.js/3.8.0/plugin/notes/notes.js",
+                  async: true },
+                
+                
+                { src: '/assets/libs/highlight.js/9.13.1/highlight.js', async: true },
+                { src: '/assets/libs/highlight.js/9.13.1/reveal-code-focus-1.0.0-mod.js',
+                  async: true,
+                  callback: function() {
+                    RevealCodeFocus();
+                  }
+                },
+                
+                { src: "/assets/libs/js/twitter-embed-widgets.js", async: true },
+                
+            ]
+        });
+
+        Reveal.addEventListener('ready', function(evt) {
+
+          if(typeof twtter !== "undefined") {
+              twttr.widgets.load();
+          }
+
+          upgradeAnchors();
+
+          if (evt.indexh === 0 && evt.indexv === 0) {
+            pushHelpNotification();
+          } else {
+            pushFootnoteNotification();
+          }
+        });
+
+        Reveal.addEventListener('menu-ready', function(evt) {
+            manageMenuPolicy();
+        });
+
+        Reveal.addEventListener('slidechanged', function(evt) {
+          if (evt.indexh === 0 && evt.indexv === 0) {
+            pushHelpNotification();
+          } else {
+            pushFootnoteNotification();
+          }
+        });
+
+        Reveal.configure({
+            keyboard: {
+                88: function() { // bind "x" key to "select" code block content
+
+                    var currentSlide = Reveal.getCurrentSlide();
+                    var preBlock = $(currentSlide).find("pre");
+
+                    if(preBlock.length > 0) {
+
+                        if (window.getSelection) {
+                            var range = document.createRange();
+                            range.selectNodeContents(preBlock[0]);
+                            var selection = window.getSelection();
+                            selection.removeAllRanges();
+                            selection.addRange(range);
+                        }
+                    }
+                }
+            }
+        });
+
+        function enterFullscreen() {
+            Reveal.triggerKey(70);
+        };
+
+        function enterOverview() {
+            Reveal.toggleOverview();
+        };
+
+        function enterBlackout() {
+            Reveal.togglePause();
+        };
+
+        function enterHelp() {
+          Reveal.toggleHelp();
+        }
+
+        function enableEvents() {
+            Reveal.addEventListeners();
+        };
+
+        function disableEvents() {
+            Reveal.removeEventListeners();
+        };
+
+        function manageMenuPolicy() {
+            if(RevealMenu && RevealMenu.isOpen()) {
+                RevealMenu.toggle();
+            }
+        }
+
+        function upgradeAnchors() {
+            Array.from(document.getElementsByTagName('a')).forEach($link => {
+              if ($link.hostname !== window.location.hostname) {
+                $link.setAttribute('rel', 'noopener noreferrer');
+                $link.setAttribute('target', '_blank');
+              }
+            });
+        }
+
+    </script>
+
+    
+    <script>
+        Reveal.configure({
+            keyboard: { 68: generators }
+        });
+        function generators() {
+            window.location.href =
+                "/gitpitch/desktop/generators" + document.location.search;
+        }
+    </script>
+
+    
+
+<script>
+    function pushNotification(msg, fade) {
+      var footer = document.getElementById('title-footer')
+      var notification = document.getElementById('notification')
+      if(window.innerWidth < 700) {
+        footer.className = "footer-hidden";
+      } else {
+          footer.className = "footer-visible";
+          if(fade) {
+            notification.className = "footer-fade";
+            notification.innerHTML = msg;
+          } else {
+            notification.className = "footer-hard";
+            notification.innerHTML = msg;
+          }
+      }
+    };
+
+    function pushHelpNotification() {
+      if(window.innerWidth < 700)
+        pushNotification("<a href='#' onclick='RevealMenu.toggle()'>Menu</a> | <a href='#' onclick='enterFullscreen()'>Fullscreen</a> | <a href='#' onclick='enterOverview()'>Overview</a> | <a href='#' onclick='enterBlackout()'>Blackout</a> | <a href='#' onclick='RevealNotes.open()'>Speaker</a> | <a href='#' onclick='enterHelp()'>Help</a>");
+      else
+        pushNotification("Navigate : Space / Arrow Keys | <a href='#' onclick='RevealMenu.toggle()'>M</a> - Menu | <a href='#' onclick='enterFullscreen()'>F</a> - Fullscreen | <a href='#' onclick='enterOverview()'>O</a> - Overview | <a href='#' onclick='enterBlackout()'>B</a> - Blackout | <a href='#' onclick='RevealNotes.open()'>S</a> - Speaker | <a href='#' onclick='enterHelp()'>?</a> - Help");
+    }
+
+    function pushFootnoteNotification() {
+      
+        pushNotification("[ GitPitch @ desktop/gitpitch/desktop ]", true);
+      
+    }
+
+    function pushCodePresentingStepNotification(step, frags) {
+      pushNotification("Code Presenting - Step " + step + " / " + frags, true);
+    }
+</script>
+
+
+
+</body>
+</html>
