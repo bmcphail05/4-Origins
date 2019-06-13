@@ -246,5 +246,8 @@ an economic system based on the private ownership of wealth, which is invested a
 - As an advocate of social reform, he was one of the founding members of the National Association for the Advancement of Colored People (NAACP).
 
 ---
-@snapend
-@snapend
+### Opioid Crisis
+
+![Opioid](https://www.youtube.com/embed/oHlaz0kQlRE)
+
+---
